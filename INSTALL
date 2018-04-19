@@ -1,0 +1,9 @@
+Building Gravity
+
+See doc/readme-qt.rst for instructions on building Gravity QT,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of Gravity.
+
+See doc/build-*.txt for instructions on building gravityd,
+the intended-for-services, no-graphical-interface, reference
+implementation of Gravity.
