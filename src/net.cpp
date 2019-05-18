@@ -3,6 +3,9 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+// Changes for Gravity GZRO
+// 2019 - Kees Koenen - Added spaces to solve https://github.com/GZR0/GRZ0/issues/3
+
 #include "irc.h"
 #include "db.h"
 #include "net.h"
@@ -1310,7 +1313,7 @@ void DumpAddresses()
     CAddrDB adb;
     adb.Write(addrman);
 
-    printf("Flushed %d addresses to peers.dat  %"PRId64"ms\n",
+    printf("Flushed %d addresses to peers.dat  %" PRId64 "ms\n",
            addrman.size(), GetTimeMillis() - nStart);
 }
 
