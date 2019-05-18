@@ -2,6 +2,9 @@
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+# Changes for Gravity GZRO
+# 2019 - Kees Koenen - Added prerequisites directories target and recipe
+
 USE_UPNP:=0
 
 LINK:=$(CXX)
@@ -45,8 +48,7 @@ LIBS+= \
    -l z \
    -l dl \
    -l pthread
-
-
+   
 # Hardening
 # Make some classes of vulnerabilities unexploitable in case one is discovered.
 #
@@ -99,7 +101,7 @@ xCXXFLAGS=-O2 $(EXT_OPTIONS) -pthread -Wall -Wextra -Wno-ignored-qualifiers -Wfo
 xLDFLAGS=$(LDHARDENING) $(LDFLAGS)
 
 OBJS= \
-    obj/alert.o \
+	obj/alert.o \
     obj/version.o \
     obj/checkpoints.o \
     obj/netbase.o \
@@ -144,12 +146,17 @@ OBJS= \
     obj/zerocoin/SpendMetaData.o \
     obj/zerocoin/ZeroTest.o
 
-all: gravityd
+all: prerequisites gravityd
+
+prerequisites:
+	@echo "Creating directories"
+	mkdir -p ./obj ./obj/zerocoin
 
 LIBS += $(CURDIR)/leveldb/libleveldb.a $(CURDIR)/leveldb/libmemenv.a
 DEFS += $(addprefix -I,$(CURDIR)/leveldb/include)
 DEFS += $(addprefix -I,$(CURDIR)/leveldb/helpers)
 OBJS += obj/txdb-leveldb.o
+
 leveldb/libleveldb.a:
 	@echo "Building LevelDB ..."; cd leveldb; make libleveldb.a libmemenv.a; cd ..;
 obj/txdb-leveldb.o: leveldb/libleveldb.a
