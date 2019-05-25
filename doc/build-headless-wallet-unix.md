@@ -43,6 +43,7 @@ _(Validated on Linux Ubuntu 18.04.1 64bit)_
 9. Now, download the GZRO Gravity source code into a folder. Note the spelling of the github-link! Suggestion: Put the source code in the current user's home directory for future reference.
 
 	`cd ~`
+	
 	`git clone https://github.com/GZR0/GRZ0.git`
 
 10. You need a specific version of libssl-dev. Issue a dpkg command to determine your current libssl-dev.
@@ -58,6 +59,7 @@ _(Validated on Linux Ubuntu 18.04.1 64bit)_
 12. If you want to install Gravity GZRO wallet including GUI, then issue the qmake and make command to install the wallet. Building the wallet application might take a while (depending on your CPU, up to one hour). You might also see a few non-critical warnings during the install. Don't worry about them, the Gravity GZRO Development team is working on a fix. If you want to skip this and only need the Gravity GZRO headless server (daemon), then proceed with step 15. 
 
 	`cd ~/GRZ0`
+	
 	`sudo qmake && sudo make` 
 	
 13. This completes the installation of the Gravity GZRO Wallet, including GUI. You can verify the install by starting the wallet application. That will also create the database and other application data in your home folder (~\.gravity).
@@ -69,6 +71,7 @@ _(Validated on Linux Ubuntu 18.04.1 64bit)_
 15. Change to the /src folder and issue the make-command to build the headless Gravity GZRO wallet. You might see a few non-critical warnings during the install. Don't worry about them, the Gravity GZRO Development team is working on a fix. 
 
 	`cd ~/GZR0/src`
+	
 	`sudo make -f makefile.unix`
 	
 16. Start the server.
