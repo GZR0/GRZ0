@@ -5,8 +5,13 @@ _(Validated on Linux Ubuntu 18.04.1 64bit)_
 
 **Prerequirements:**
 	Ubuntu or compatible flavored Linux server with root access.
+	Cloned GZRO github repository in your preffered folder (git clone http://github.com/GZR0/GRZ0)
   
   Follow all steps to create a headless Gravity GZRO server. If you want to, you can use a previously exported wallet by replacing the `wallet.dat` file in the `.gravity` folder. The Gravity GZRO server needs access to the Internet on port 8333 for communication to other nodes. If you want to accesss the server through RPC, you need to open port 8332 (TCP) too. Be aware: Offering outside access to RPC will expose your server to outside brute-force attacks. You'll probably want to setup your application inside the same network (or even on the same server) and keep all direct communications to the Gravity GZRO server off the Internet.
+  
+  For readability, we assume that you cloned the GZRO repository in your homedir. If you prefer a different location, adjust the path references (~/GZR0) accordingly.
+  
+  By default, the data files are stored in ~/.gravity. If you want to use a different directory for your datafiles, indicate at startup by using the datadir argument (./gravityd -datadir=<path).
 
 1. Install all updates.
 
