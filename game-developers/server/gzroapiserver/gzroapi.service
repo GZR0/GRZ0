@@ -1,0 +1,15 @@
+
+Description=GRZO_Gravity_API_server
+
+Wants=network.target
+After=syslog.target network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/node /opt/gzroapi/apiserver
+Restart=on-failure
+RestartSec=10
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
