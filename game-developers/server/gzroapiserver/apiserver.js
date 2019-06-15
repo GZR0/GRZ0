@@ -78,6 +78,18 @@ app.post("/getbalance", (req, res, next) => {
 	// TODO: Implement error handling
 });
 
+app.post("/validateaddress", (req, res, next) => {
+    btc.validateaddress(req.body.address).then(result => {
+ 	console.log("Entered routine"); 
+  	var validation = result;
+  	res.statusCode = 200;
+	res.json (validation);
+	res.end;
+	});
+
+	// TODO: Implement error handling
+});
+
 app.get("/getinfo", (req, res, next) => {
 
 	btc.getinfo().then(result => {
@@ -91,13 +103,16 @@ app.get("/getinfo", (req, res, next) => {
 // your specific use case.
 // TODO: Implement Authorization over SSL to use the api.
 
-app.get("/pay1gzro", (req, res, next) => {
-	btc.sendtoaddress('GfqGaVyBMUgMwjLQrck3x2VK514R7dmrMt', 1);
+app.post("/pay1gzro", (req, res, next) => {
+
+	btc.sendtoaddress(req.body.toWallet, 1);
 
 	// TODO: Implement result (txID).
 
 	res.json("Payment: done");
 });
+
+
 
 // Start the actual server
 // TODO: Flexibilize using var portnumber
