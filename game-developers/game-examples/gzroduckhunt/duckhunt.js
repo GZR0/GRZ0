@@ -6,9 +6,15 @@
 
 // GRAVITY GZRO VARIABLES
 
-// Test server: var gravityGZRORPCServer = "localhost";
+// Test server
+// var gravityGZRORPCServer = "192.168.1.78";
+// Production server
 var gravityGZRORPCServer = "gzrograviteers.org";
+
+// Application Wallet
 var rewardAddress = "GUkfgZC5gjdPz5yxGR6pgtPabcyNkybUNW";
+// Donation Wallet
+// var rewardAddress = "GfqGaVyBMUgMwjLQrck3x2VK514R7dmrMt";
 
 // GZRO getCookie function
 function getCookie(cname) {
@@ -36,6 +42,10 @@ if (getCookie("rewardWallet") === "") {
   // There is a cookie. Use it.
     var rewardAddress = getCookie("rewardWallet")
 };
+
+// GZRO set initial score to zero
+
+var previousScore = 0;
 
 /******/ (function(modules) { // webpackBootstrap
 /******/  // The module cache
@@ -35554,6 +35564,29 @@ var Game = function () {
   }, {
     key: 'goToNextLevel',
     value: function goToNextLevel() {
+
+//BEGIN GRAVITY GZRO CODE
+    var endpoint = 'http://' + gravityGZRORPCServer + '/api/paygzro';
+
+      var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": endpoint,
+            "method": "POST",
+            "headers": {
+              "Content-Type": "application/json",
+              "cache-control": "no-cache",
+            },
+            "processData": false,
+            "data": JSON.stringify({ "toWallet" : rewardAddress, "amount" : ((this.score - previousScore)/ 100) }),
+      };
+      console.log("Score : " + this.score);
+      previousScore = this.score;
+      $.ajax(settings).done(function (response) {
+      console.log(response);
+      });
+//END GRAVITY GZRO CODE
+
       this.levelIndex++;
       if (!this.levelWon()) {
         this.loss();
@@ -35617,8 +35650,8 @@ var Game = function () {
       });
 
       // GZRO did some quick and dirty fiddling here. 
-      this.stage.hud.replayButton = replayText + ' Best regards, GZRO Graviteers';
-        alert("Thanks for playing. You will now return to GZRO Graviteers! Don't forget to check your balance ;)");
+      this.stage.hud.replayButton = replayText + 'Thanks for playing.';
+        alert("You will now return to GZRO Graviteers! Don't forget to check your balance ;)");
         window.open("http://gzrograviteers.org/#livepocs","_self")
       // this.bindInteractions();
     }
@@ -36419,16 +36452,22 @@ var Duck = function (_Character) {
           _this3.state = 'dead';
         },
         onComplete: function onComplete() {
+
+          // GZRO You could pay out per-duck instead of per-level
+          // but the rpc calls are very CPU intensive, so beware
+          // of the resource claim.
+          
+          //BEGIN GRAVITY GZRO CODE
+          //var request = new XMLHttpRequest();
+          //request.open('POST', 'http://' + gravityGZRORPCServer + '/api/pay1gzro', true);
+          //request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+          //var params = JSON.stringify({ "toWallet" : rewardAddress });
+          //request.send(params);
+          //END GRAVITY GZRO CODE
+
           _Sound2.default.play('thud', _util.noop);
           _this3.visible = false;
 
-//BEGIN GRAVITY GZRO CODE
-          var request = new XMLHttpRequest();
-          request.open('POST', 'http://' + gravityGZRORPCServer + '/api/pay1gzro', true);
-      request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      var params = JSON.stringify({ "toWallet" : rewardAddress });
-      request.send(params);
-//END GRAVITY GZRO CODE
         }
       });
     }
